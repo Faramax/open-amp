@@ -13,8 +13,8 @@ set (CROSS_PREFIX             "/home/sergey/projects/developUTC/source/arm-tools
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-cmake_path (SET LIBMETAL_LIB         NORMALIZE "${CMAKE_CURRENT_SOURCE_DIR}/../libmetal/install/m4-generic-release/usr/local/lib/")
-cmake_path (SET LIBMETAL_INCLUDE_DIR NORMALIZE "${CMAKE_CURRENT_SOURCE_DIR}/../libmetal/install/m4-generic-release/usr/local/include")
+cmake_path (SET LIBMETAL_LIB         NORMALIZE "${CMAKE_SOURCE_DIR}/../libmetal/install/usr/local/lib/")
+cmake_path (SET LIBMETAL_INCLUDE_DIR NORMALIZE "${CMAKE_SOURCE_DIR}/../libmetal/install/usr/local/include")
 
 set(CMAKE_C_CXX_COMMON_FLAGS  "-Wno-unused-variable -Wno-unused-parameter -Wno-psabi -Wno-deprecated-declarations")
 set(STM32_FLAGS               "-mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -mabi=aapcs")
