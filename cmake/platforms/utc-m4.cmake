@@ -8,20 +8,20 @@ set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER CACHE STRING "")
 set (WITH_DOC OFF)
 set (WITH_APPS OFF)
 
-set (CROSS_PREFIX             "/home/sergey/projects/developUTC/source/arm-tools/gcc/bin/arm-none-eabi-" CACHE STRING "")
+set(ARM_TOOLS_PATH           "/home/sergey/projects/developUTC/source/arm-tools")
+set(STM32_TOOLCHAIN_PATH     "${ARM_TOOLS_PATH}/gcc")
+set(CROSS_PREFIX             "${STM32_TOOLCHAIN_PATH}/bin/arm-none-eabi-")
 
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_STANDARD_REQUIRED ON)
+set(STM32_FLAGS               "-mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -mabi=aapcs")
+set(CMAKE_C_FLAGS             "${CMAKE_C_CXX_COMMON_FLAGS} ${STM32_FLAGS} -x c -std=c99")
+
+set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+set(CMAKE_C_COMPILER         "${CROSS_PREFIX}gcc")
+set(CMAKE_CXX_COMPILER       "${CROSS_PREFIX}g++")
+set(CMAKE_ASM_COMPILER       "${CROSS_PREFIX}gcc")
+
+#set(STM32_CMAKE_PATH         "${CMAKE_CURRENT_LIST_DIR}/../../../stm32-cmake")
+#include(${STM32_CMAKE_PATH}/cmake/stm32_gcc.cmake)
 
 cmake_path (SET LIBMETAL_LIB         NORMALIZE "${CMAKE_SOURCE_DIR}/../libmetal/install/usr/local/lib/")
 cmake_path (SET LIBMETAL_INCLUDE_DIR NORMALIZE "${CMAKE_SOURCE_DIR}/../libmetal/install/usr/local/include")
-
-set(CMAKE_C_CXX_COMMON_FLAGS  "-Wno-unused-variable -Wno-unused-parameter -Wno-psabi -Wno-deprecated-declarations")
-set(STM32_FLAGS               "-mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -mabi=aapcs")
-
-set(CMAKE_C_FLAGS             "${CMAKE_C_CXX_COMMON_FLAGS} ${STM32_FLAGS}")
-set(CMAKE_EXE_LINKER_FLAGS    "-flto --specs=nosys.specs")
-
-include (CMakeForceCompiler)
-CMAKE_FORCE_C_COMPILER   ("${CROSS_PREFIX}gcc" GNU)
-CMAKE_FORCE_CXX_COMPILER ("${CROSS_PREFIX}g++" GNU)
