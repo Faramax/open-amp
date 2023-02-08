@@ -65,5 +65,7 @@ else (WITH_ZEPHYR)
   endif (WITH_STATIC_LIB)
 endif (WITH_ZEPHYR)
 
+target_compile_definitions(${_lib} PRIVATE __STDC_NO_ATOMICS__)
+
 install (DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/openamp" DESTINATION include)
 install (DIRECTORY "${PROJECT_BINARY_DIR}/include/generated/openamp" DESTINATION include)
